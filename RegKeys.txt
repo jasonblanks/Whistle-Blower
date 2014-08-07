@@ -1,0 +1,9 @@
+HKEY_LOCAL_MACHINE\SOFTWARE\CBSTEST\AutoStart
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WAB\Resources\Labels\Modem
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WAB\Resources\Labels\Agent
+HKEY_USERS\S-1-5-21-1232934697-1086943095-315576832-727761\Software\Microsoft\Windows\CurrentVersion\Extensions\rtf
+HKEY_USERS\S-1-5-21-1232934697-1086943095-315576832-727761\Software\Microsoft\Windows\CurrentVersion\Run\fakefile
+HKEY_CURRENT_USER\Software\Microsoft\Terminal Server Client\Servers\datacopym07.ctecfts.com
+HKEY_CURRENT_USER\Software\Microsoft\Terminal Server Client\Servers\datacopym07.ctecfts.com\UsernameHint
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run\SynTPEnh
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\SynTPEnh
