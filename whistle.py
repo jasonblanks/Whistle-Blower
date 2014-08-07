@@ -1,5 +1,10 @@
 #from _winreg import *
+#import logging
+#import logging
+from rekall import session
+from rekall import plugins
 from sys import platform as _platform
+
 if _platform == "win32":
         from _winreg import *
 
@@ -50,6 +55,24 @@ def RegScan():
                         count = count + 1
                 except WindowsError:
                     pass
+
+def memscan():
+    logging.getLogger().setLevel(logging.DEBUG)
+
+    system("winpmem_1.6.0.exe -l")
+
+    s = session.Session(                                      # 1
+        profile_path=[
+            "http://profiles.rekall-forensic.com"
+        ])
+
+    with s:                                                   # 2
+        s.physical_address_space = standard.FDAddressSpace(fhandle=open(r"\\.\pmem"), session=s)
+        s.GetParameter("profile")                             # 3
+
+    print s.plugins.pslist(method="PsActiveProcessHead")
+
+
 
 
 def main():
