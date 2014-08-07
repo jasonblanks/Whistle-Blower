@@ -56,15 +56,19 @@ def RegScan():
                     pass
 
 def memscan():
-    logging.getLogger().setLevel(logging.DEBUG)
-    os.system("winpmem_1.6.0.exe -u")
-    os.system("winpmem_1.6.0.exe -l")
+    #logging.getLogger().setLevel(logging.DEBUG)
+    #os.system("winpmem_1.6.0.exe -u")
+    #os.system("winpmem_1.6.0.exe -l")
 
     s = session.Session(
-        filename="\\.\pmem"
-)
+        #filename="\\.\pmem",
+        filename="test.raw",
+        profile_path=[
+            "http://profiles.rekall-forensic.com"
+        ])
     #print s.plugins.load_as(r"\\.\pmem")]]]]]
     #print s.plugins.pslist(method="PsActiveProcessHead")
+    print s.plugins.psaux()
 
 
 
@@ -74,9 +78,10 @@ def main():
     if OS == r"win32" or OS == r"win64":
         print OS
         RegScan()
+        memscan()
     else:
         print "System is a "+OS+" Machine, nothing to be done here."
-    memscan()
+        memscan()
 
 
 main()
