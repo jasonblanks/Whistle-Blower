@@ -1,6 +1,5 @@
 import logging
 import os
-import standard
 from rekall import session
 from rekall import plugins
 from sys import platform as _platform
@@ -61,16 +60,11 @@ def memscan():
     os.system("winpmem_1.6.0.exe -u")
     os.system("winpmem_1.6.0.exe -l")
 
-    s = session.Session(                                      # 1
-        profile_path=[
-            "http://profiles.rekall-forensic.com"
-        ])
-
-    with s:                                                   # 2
-        s.physical_address_space = standard.FDAddressSpace(fhandle=open(r"\\.\PhysicalMemory"), session=s)
-        s.GetParameter("profile")                             # 3
-
-    print s.plugins.pslist(method="PsActiveProcessHead")
+    s = session.Session(
+        filename="\\.\pmem"
+)
+    #print s.plugins.load_as(r"\\.\pmem")]]]]]
+    #print s.plugins.pslist(method="PsActiveProcessHead")
 
 
 
