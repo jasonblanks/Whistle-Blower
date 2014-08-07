@@ -1,6 +1,6 @@
-#from _winreg import *
-#import logging
-#import logging
+import logging
+import os
+import standard
 from rekall import session
 from rekall import plugins
 from sys import platform as _platform
@@ -58,8 +58,8 @@ def RegScan():
 
 def memscan():
     logging.getLogger().setLevel(logging.DEBUG)
-
-    system("winpmem_1.6.0.exe -l")
+    os.system("winpmem_1.6.0.exe -u")
+    os.system("winpmem_1.6.0.exe -l")
 
     s = session.Session(                                      # 1
         profile_path=[
@@ -67,7 +67,7 @@ def memscan():
         ])
 
     with s:                                                   # 2
-        s.physical_address_space = standard.FDAddressSpace(fhandle=open(r"\\.\pmem"), session=s)
+        s.physical_address_space = standard.FDAddressSpace(fhandle=open(r"\\.\PhysicalMemory"), session=s)
         s.GetParameter("profile")                             # 3
 
     print s.plugins.pslist(method="PsActiveProcessHead")
@@ -82,6 +82,7 @@ def main():
         RegScan()
     else:
         print "System is a "+OS+" Machine, nothing to be done here."
+    memscan()
 
 
 main()
