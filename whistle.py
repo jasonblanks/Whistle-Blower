@@ -1,13 +1,13 @@
+
 import logging
 import os
 from rekall import session
 from rekall import plugins
+from rekall.plugins.addrspaces import standard
 from sys import platform as _platform
 
 if _platform == "win32":
         from _winreg import *
-
-
 
 def OSCheck():
     if _platform == "linux" or _platform == "linux2":
@@ -16,18 +16,14 @@ def OSCheck():
         # OS X
         return _platform
     elif _platform == "win32":
-        # Windows...
         return _platform
+        # Windows...
     elif _platform == "win64":
         return _platform
 
 
 def RegScan():
-    #reg = ConnectRegistry(None, HKEY_LOCAL_MACHINE)
     RegKey = open("RegKeys.txt").readlines()
-
-    #RegKey = [r"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run\SynTPEnh",r'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\SynTPEnh']
-
     for r in RegKey:
             r = r.strip()
             HIVE = r.partition("\\")
@@ -57,18 +53,28 @@ def RegScan():
 
 def memscan():
     #logging.getLogger().setLevel(logging.DEBUG)
-    #os.system("winpmem_1.6.0.exe -u")
-    #os.system("winpmem_1.6.0.exe -l")
 
-    s = session.Session(
-        #filename="\\.\pmem",
-        filename="test.raw",
-        profile_path=[
-            "http://profiles.rekall-forensic.com"
-        ])
-    #print s.plugins.load_as(r"\\.\pmem")]]]]]
-    #print s.plugins.pslist(method="PsActiveProcessHead")
-    print s.plugins.psaux()
+    OS = OSCheck()
+    if OS == r"win32" or OS == r"win64":
+        system("winpmem_1.6.0.exe -u")
+        system("winpmem_1.6.0.exe -l")
+
+        s = session.Session(
+            filename="/home/jason/PycharmProjects/Whistle-Blower/Win7SP1x86.raw",
+            profile_path=["http://profiles.rekall-forensic.com"])
+
+        print s.GetParameter("profile")
+        print  s.plugins.pslist()
+        system("winpmem_1.6.0.exe -u")
+
+    else:
+        print "Only Windows Memory Analysis is supported at this time"
+        #with s:
+        #    s.physical_address_space = standard.FDAddressSpace(fhandle=open(
+        #            "/home/jason/PycharmProjects/Whistle-Blower/Win7SP1x86.raw"), session=s)
+        #    s.GetParameter("profile")
+        #
+        #    print s.plugins.version_scan()
 
 
 
@@ -81,7 +87,6 @@ def main():
         memscan()
     else:
         print "System is a "+OS+" Machine, nothing to be done here."
-        memscan()
 
 
 main()
