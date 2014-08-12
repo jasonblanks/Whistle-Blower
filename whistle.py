@@ -55,7 +55,7 @@ def RegScan():
 
 def memscan():
     #logging.getLogger().setLevel(logging.DEBUG)
-    livecapture = True
+    livecapture = False
     OS = OSCheck()
     share=r"\\VBOXSVR\Temp"
     if OS == r"win32" or OS == r"win64":
@@ -66,17 +66,14 @@ def memscan():
             os.system("winpmem_1.6.0.exe "+share+"\\image.raw")
             s = session.Session(
                 filename=share+"\\image.raw",
-                #interactive.ImportEnvironment(filename=r"\\.\pmem"),
                 profile_path=["http://profiles.rekall-forensic.com"])
 
         else:
             os.system("winpmem_1.6.0.exe -u")
             os.system("winpmem_1.6.0.exe -l")
 
-            #s = interactive.ImportEnvironment(filename=r"\\.\pmem")
             s = session.Session(
-                #filename=r"\\.\pmem",
-                #interactive.ImportEnvironment(filename=r"\\.\pmem"),
+                filename=r"\\.\pmem",
                 profile_path=["http://profiles.rekall-forensic.com"])
 
         print s.GetParameter("profile")
@@ -84,13 +81,7 @@ def memscan():
         os.system("winpmem_1.6.0.exe -u")
 
     else:
-        #print "Only Windows Memory Analysis is supported at this time"
-        s = session.Session(
-            filename="/home/me/PycharmProjects/Whistle-Blower/Win7SP1x86.raw",
-            profile_path=["http://profiles.rekall-forensic.com"])
-
-        print s.GetParameter("profile")
-        print  s.plugins.malfind()
+        print "Only Windows Memory Analysis is supported at this time"
         #system("winpmem_1.6.0.exe -u")
         #with s:
         #    s.physical_address_space = standard.FDAddressSpace(fhandle=open(
