@@ -12,7 +12,7 @@ Rekall-
 Yara-
     Add Yara support
     
-NBDServer
+NBDServer-
     Add NBDServer functions for remote aqusitions.
     
 Django-
