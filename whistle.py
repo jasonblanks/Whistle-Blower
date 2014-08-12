@@ -10,6 +10,11 @@ from sys import platform as _platform
 
 if _platform == "win32":
         from _winreg import *
+        
+#GLOBAL
+livecapture = False
+share=r"\\VBOXSVR\Temp"
+
 
 def OSCheck():
     if _platform == "linux" or _platform == "linux2":
@@ -53,11 +58,10 @@ def RegScan():
                 except WindowsError:
                     pass
 
-def memscan():
-    #logging.getLogger().setLevel(logging.DEBUG)
-    livecapture = False
+def memscan(share,livecapture):
     OS = OSCheck()
-    share=r"\\VBOXSVR\Temp"
+    #logging.getLogger().setLevel(logging.DEBUG)
+    
     if OS == r"win32" or OS == r"win64":
         if livecapture == True:
             root = os.getcwd()
@@ -98,7 +102,7 @@ def main():
     if OS == r"win32" or OS == r"win64":
         print OS
         RegScan()
-        memscan()
+        memscan(share,livecapture)
     else:
         print "System is a "+OS+" Machine, nothing to be done here."
         memscan()
