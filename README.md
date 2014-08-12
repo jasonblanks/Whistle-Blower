@@ -1,16 +1,21 @@
 Whistle-Blower
 ==============
 
-Light weight IOC gather and alert tool
+Light weight IOC gather and alert tool incorporating Rekall and Yara rules.
 
 
 TODO:
 
-Add Rekall support for process IOC's 
-    -static process names. 
-    -report suspicious injected and hollowed processes. Add Known File IOC hunter. 
-    -include fuzzy dir and ssdeep support.
+Rekall-
+    Work on logic, decide what to gather and report to server.
 
-Add support for rules and importing of common IOC formats.
+Yara-
+    Add Yara support
+    
+NBDServer
+    Add NBDServer functions for remote aqusitions.
+    
+Django-
+    work on server django front-end
 
-Develop sever, reporting, and communication logic.
+Develop sever and communication logic.
